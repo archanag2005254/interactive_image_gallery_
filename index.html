@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Editable Image Gallery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --img-height: 180px;
+    --border-radius: 12px;
+    --hover-scale: 1.08;
+    --hover-lift: -8px;
+    --grid-gap: 18px;
+    --bg-color: #0f172a;
+}
+
+body {
+    margin: 0;
+    background: var(--bg-color);
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+h2 {
+    text-align: center;
+    padding: 15px;
+}
+
+/* GALLERY GRID */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--grid-gap);
+    padding: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    height: var(--img-height);
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.gallery img:hover {
+    transform: scale(var(--hover-scale)) translateY(var(--hover-lift));
+    box-shadow: 0px 12px 25px rgba(0,0,0,0.6);
+    filter: brightness(1.15);
+}
+
+/* LIGHTBOX */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 85%;
+    border-radius: 12px;
+}
+
+/* CLOSE BUTTON */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Malnad Cliks</h2>
+
+<div class="gallery">
+    <img src="https://uploads.onecompiler.io/43faapvtu/44chevpfn/1000144732.webp">
+    <img src="https://uploads.onecompiler.io/43faapvtu/44chevpfn/1000144731.webp">
+    <img src="https://uploads.onecompiler.io/43faapvtu/44chevpfn/1000144730.webp">
+    <img src="https://uploads.onecompiler.io/43faapvtu/44chevpfn/1000144729.webp">
+    <img src="https://uploads.onecompiler.io/43faapvtu/44chevpfn/1000144725.webp">
+    <img src="https://uploads.onecompiler.io/43faapvtu/44chevpfn/1000144726.webp">
+    <img src="https://uploads.onecompiler.io/43faapvtu/44chevpfn/1000144725.webp">
+    <img src="https://uploads.onecompiler.io/43faapvtu/44chevpfn/1000144724.webp">
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeBox()">
+    <span class="close">✖</span>
+    <img id="bigImg" onclick="event.stopPropagation()">
+</div>
+
+<script>
+let images = document.querySelectorAll(".gallery img");
+let lightbox = document.getElementById("lightbox");
+let bigImg = document.getElementById("bigImg");
+
+images.forEach(img => {
+    img.onclick = () => {
+        lightbox.style.display = "flex";
+        bigImg.src = img.src;
+    }
+});
+
+function closeBox() {
+    lightbox.style.display = "none";
+}
+</script>
+
+</body>
+</html>
